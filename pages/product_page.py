@@ -19,8 +19,14 @@ class ProductPage(BasePage):
         assert product_price.text == cart_product_price.text, \
             f"Product price is incorrect, must be {product_price.text}, now {cart_product_price.text}"
 
-    def should_be_success_message_name_product(self):
-        assert self.is_element_present(*ProductPageLocators.ADDED_PRODUCT), "Success message with name is not present"
+    def should_be_success_message(self):
+        assert self.is_element_present(*ProductPageLocators.ADDED_PRODUCT), \
+            "success message is not present, but should be"
 
-    def should_be_success_message_price_in_cart(self):
-        assert self.is_element_present(*ProductPageLocators.CART_PRICE), "Success message with price is not present"
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ADDED_PRODUCT), \
+            "success message is present, but should not be"
+
+    def success_message_is_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.ADDED_PRODUCT), \
+            "Success_message is not disappeared"

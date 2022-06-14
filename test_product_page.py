@@ -19,7 +19,32 @@ def test_guest_can_add_product_to_basket(browser, url):
     page.open()
     page.add_to_cart()
     page.solve_quiz_and_get_code()
-    page.should_be_success_message_name_product()
-    page.should_be_success_message_price_in_cart()
     page.should_be_correct_product_name()
     page.should_be_correct_adding_product_price()
+
+
+@pytest.mark.xfail
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+    page = ProductPage(browser, url)
+    page.open()
+    page.add_to_cart()
+    page.solve_quiz_and_get_code()
+    page.should_not_be_success_message()
+
+
+def test_guest_cant_see_success_message(browser):
+    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+    page = ProductPage(browser, url)
+    page.open()
+    page.should_not_be_success_message()
+
+
+@pytest.mark.xfail
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+    page = ProductPage(browser, url)
+    page.open()
+    page.add_to_cart()
+    page.solve_quiz_and_get_code()
+    page.success_message_is_disappeared()
